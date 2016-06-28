@@ -19967,7 +19967,7 @@
 	                this.props.allRegions.map(function (region, index) {
 	                    return React.createElement(
 	                        'option',
-	                        { value: index },
+	                        { value: index, key: region },
 	                        ' ',
 	                        region,
 	                        ' '

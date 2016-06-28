@@ -22,7 +22,7 @@ var RegionSelector = React.createClass({
                 <select value={this.state.selectedIndex} onChange={this.handleChange}>
                     {
                         this.props.allRegions.map(function(region, index){
-                            return <option value={index}> {region} </option>
+                            return <option value={index} key={region}> {region} </option>
                         })
                     }
                 </select>
