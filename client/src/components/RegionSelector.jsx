@@ -8,13 +8,13 @@ var RegionSelector = React.createClass({
         };
     },
 
-    // handleChange: function(e){
-    //     e.preventDefault();
-    //     var newIndex = e.target.value;
-    //     this.setState({selectedIndex: newIndex});
-    //     var selectedRegion = this.props.regions[newIndex];
-    //     this.props.onSelectRegion(selectedRegion);
-    // },
+    handleChange: function(e){
+        e.preventDefault();
+        var newIndex = e.target.value;
+        this.setState({selectedIndex: newIndex});
+        var selectedRegion = this.props.allRegions[newIndex];
+        this.props.onSelectRegion(selectedRegion);
+    },
 
     render: function() {
         return (

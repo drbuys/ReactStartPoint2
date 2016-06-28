@@ -13,7 +13,7 @@ var CountriesSelector = React.createClass({
         e.preventDefault();
         var newIndex = e.target.value;
         this.setState({selectedIndex: newIndex});
-        var selectedCountry = this.props.countries[newIndex];
+        var selectedCountry = this.props.selectedCountries[newIndex];
         this.props.onSelectCountry(selectedCountry);
     },
 
@@ -21,8 +21,13 @@ var CountriesSelector = React.createClass({
         return (
             <div>
                 <select value={this.state.selectedIndex} onChange={this.handleChange}>
-                    {
+                    {/*{
                         this.props.countries.map(function(country, index){
+                        return <option value={index} key={country.alpha2Code}> {country.name} </option>
+                        })
+                    }*/}
+                    {
+                        this.props.selectedCountries.map(function(country, index){
                             return <option value={index} key={country.alpha2Code}> {country.name} </option>
                         })
                     }

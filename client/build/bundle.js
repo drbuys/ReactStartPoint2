@@ -19705,7 +19705,7 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            countries: [],
-	            regions: [],
+	            // regions: [],
 	            displayRegion: null,
 	            regionCountries: [],
 	            displayCountry: null,
@@ -19754,19 +19754,48 @@
 	        return borders;
 	    },
 	
-	    // setRegionCountries: function(region){
-	    //
-	    // },
+	    setRegionCountries: function setRegionCountries(region) {
+	        var regions = [];
+	        var _iteratorNormalCompletion2 = true;
+	        var _didIteratorError2 = false;
+	        var _iteratorError2 = undefined;
+	
+	        try {
+	            for (var _iterator2 = this.state.countries[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                var country = _step2.value;
+	
+	                if (country.region === region) {
+	                    regions.push(country);
+	                };
+	            }
+	        } catch (err) {
+	            _didIteratorError2 = true;
+	            _iteratorError2 = err;
+	        } finally {
+	            try {
+	                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                    _iterator2.return();
+	                }
+	            } finally {
+	                if (_didIteratorError2) {
+	                    throw _iteratorError2;
+	                }
+	            }
+	        }
+	
+	        console.log(regions);
+	        return regions;
+	    },
 	
 	    setDisplayCountry: function setDisplayCountry(country) {
 	        this.setState({ displayCountry: country });
 	        this.setState({ displayBorderCountries: this.setBorderCountries(country) });
 	    },
 	
-	    // setDisplayRegion: function(region){
-	    //     this.setState({displayRegion: region});
-	    //     this.setState({regionCountries: this.setRegionCountries(region)});
-	    // },
+	    setDisplayRegion: function setDisplayRegion(region) {
+	        this.setState({ displayRegion: region });
+	        this.setState({ regionCountries: this.setRegionCountries(region) });
+	    },
 	
 	    componentDidMount: function componentDidMount() {
 	        console.log('CDM was called');
@@ -19797,10 +19826,11 @@
 	                null,
 	                ' Countries Box '
 	            ),
-	            React.createElement(RegionSelector, { allRegions: this.setRegions() }),
+	            React.createElement(RegionSelector, { allRegions: this.setRegions(), onSelectRegion: this.setDisplayRegion }),
 	            React.createElement(CountriesSelector, {
 	                countries: this.state.countries,
 	                selectedCountries: this.state.regionCountries,
+	                onSelectRegion: this.setDisplayRegion,
 	                onSelectCountry: this.setDisplayCountry,
 	                display: this.state.displayCountry
 	            }),
@@ -19835,7 +19865,7 @@
 	        e.preventDefault();
 	        var newIndex = e.target.value;
 	        this.setState({ selectedIndex: newIndex });
-	        var selectedCountry = this.props.countries[newIndex];
+	        var selectedCountry = this.props.selectedCountries[newIndex];
 	        this.props.onSelectCountry(selectedCountry);
 	    },
 	
@@ -19846,7 +19876,7 @@
 	            React.createElement(
 	                'select',
 	                { value: this.state.selectedIndex, onChange: this.handleChange },
-	                this.props.countries.map(function (country, index) {
+	                this.props.selectedCountries.map(function (country, index) {
 	                    return React.createElement(
 	                        'option',
 	                        { value: index, key: country.alpha2Code },
@@ -19949,13 +19979,13 @@
 	        };
 	    },
 	
-	    // handleChange: function(e){
-	    //     e.preventDefault();
-	    //     var newIndex = e.target.value;
-	    //     this.setState({selectedIndex: newIndex});
-	    //     var selectedRegion = this.props.regions[newIndex];
-	    //     this.props.onSelectRegion(selectedRegion);
-	    // },
+	    handleChange: function handleChange(e) {
+	        e.preventDefault();
+	        var newIndex = e.target.value;
+	        this.setState({ selectedIndex: newIndex });
+	        var selectedRegion = this.props.allRegions[newIndex];
+	        this.props.onSelectRegion(selectedRegion);
+	    },
 	
 	    render: function render() {
 	        return React.createElement(

@@ -8,7 +8,7 @@ var CountriesBox = React.createClass({
     getInitialState: function() {
         return {
             countries: [],
-            regions: [],
+            // regions: [],
             displayRegion: null,
             regionCountries: [],
             displayCountry: null,
@@ -36,19 +36,26 @@ var CountriesBox = React.createClass({
         return borders;
     },
 
-    // setRegionCountries: function(region){
-    //
-    // },
+    setRegionCountries: function(region){
+        var regions = []
+        for(var country of this.state.countries){
+            if(country.region === region){
+                regions.push(country)
+            };
+        }
+        console.log(regions);
+        return regions;
+    },
 
     setDisplayCountry: function(country){
         this.setState({displayCountry: country});
         this.setState({displayBorderCountries: this.setBorderCountries(country)});
     },
 
-    // setDisplayRegion: function(region){
-    //     this.setState({displayRegion: region});
-    //     this.setState({regionCountries: this.setRegionCountries(region)});
-    // },
+    setDisplayRegion: function(region){
+        this.setState({displayRegion: region});
+        this.setState({regionCountries: this.setRegionCountries(region)});
+    },
 
     componentDidMount: function(){
         console.log('CDM was called');
@@ -70,10 +77,11 @@ var CountriesBox = React.createClass({
         return (
             <div>
                 <h4> Countries Box </h4>
-                <RegionSelector allRegions={this.setRegions()}/>
+                <RegionSelector allRegions={this.setRegions()} onSelectRegion={this.setDisplayRegion}/>
                 <CountriesSelector
                     countries={this.state.countries}
                     selectedCountries={this.state.regionCountries}
+                    onSelectRegion={this.setDisplayRegion}
                     onSelectCountry={this.setDisplayCountry}
                     display={this.state.displayCountry}
                 />
