@@ -1,0 +1,24 @@
+body {
+    background: 	#fff400;
+    color: #9ef472;
+        text-align: center;
+}
+
+h4 {
+    background: #f6adff;
+    border-radius: 8px;
+    box-shadow: 10px 10px 5px #888888;
+
+}
+
+select {
+    background: #1bffd7;
+    color: 	#fff400;
+    font-size: 1.5em;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+p {
+    font-size: 1.2em;
+    text-shadow: 1px 1px 3px red;
+}

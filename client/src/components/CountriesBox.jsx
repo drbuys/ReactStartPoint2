@@ -25,14 +25,21 @@ var CountriesBox = React.createClass({
     },
 
     setBorderCountries: function(country){
-        var borders = country.borders.map(function(code){
-            for(var c of this.state.countries){
-                if(c.alpha3Code === code){
-                    return c
-                };
-            }
-        }.bind(this))
-        return borders;
+        // var borders = country.borders.map(function(code){
+        //     for(var c of this.state.countries){
+        //         if(c.alpha3Code === code){
+        //             return c
+        //         };
+        //     }
+        // }.bind(this))
+        // return borders;
+
+        return country.borders.map(function(code) {
+            return this.state.countries.find(function(country) {
+                return country.alpha3Code === code;
+            });
+        }.bind(this));
+
     },
 
     setRegionCountries: function(region){
