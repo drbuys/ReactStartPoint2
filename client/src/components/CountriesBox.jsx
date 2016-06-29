@@ -21,7 +21,6 @@ var CountriesBox = React.createClass({
             return country.region
         })
         var worldRegions = _.uniq(worldRegion)
-        console.log(worldRegions);
         return worldRegions;
     },
 
@@ -37,14 +36,13 @@ var CountriesBox = React.createClass({
     },
 
     setRegionCountries: function(region){
-        var regions = []
+        var regionCountries = []
         for(var country of this.state.countries){
             if(country.region === region){
-                regions.push(country)
+                regionCountries.push(country)
             };
         }
-        console.log(regions);
-        return regions;
+        return regionCountries;
     },
 
     setDisplayCountry: function(country){
@@ -65,12 +63,16 @@ var CountriesBox = React.createClass({
         request.onload = function() {
             var data = JSON.parse(request.responseText);
             this.setState({countries: data});
+            var curRegion = this.setRegions()[0];
+            console.log(curRegion);
+            this.setDisplayRegion(curRegion);
+            this.setDisplayCountry(data[0]);
         }.bind(this);
         request.send(null);
     },
 
     render: function() {
-        var displayElement = <h4> No Country Selected </h4>
+        var displayElement = <h4> No Country Selected  </h4>
         if(this.state.displayCountry){
             displayElement = <CountryDisplay display={this.state.displayCountry} borders={this.state.displayBorderCountries} />
         }
@@ -81,7 +83,6 @@ var CountriesBox = React.createClass({
                 <CountriesSelector
                     countries={this.state.countries}
                     selectedCountries={this.state.regionCountries}
-                    onSelectRegion={this.setDisplayRegion}
                     onSelectCountry={this.setDisplayCountry}
                     display={this.state.displayCountry}
                 />

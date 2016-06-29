@@ -10,7 +10,7 @@ var CountryDisplay = React.createClass({
                 <p>Native Name: {this.props.display.nativeName}</p>
                 <p>Capital: {this.props.display.capital}</p>
                 <p>Population: {this.props.display.population}</p>
-                <h4>These are the Countries {this.props.display.name} borders</h4>
+                <h4>These are the bordering Countries of {this.props.display.name}</h4>
                 {/*{
                     this.props.display.borders.map(function(countrycode){
                     return <p> {countrycode} </p>

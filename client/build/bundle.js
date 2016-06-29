@@ -19718,7 +19718,6 @@
 	            return country.region;
 	        });
 	        var worldRegions = _.uniq(worldRegion);
-	        console.log(worldRegions);
 	        return worldRegions;
 	    },
 	
@@ -19755,7 +19754,7 @@
 	    },
 	
 	    setRegionCountries: function setRegionCountries(region) {
-	        var regions = [];
+	        var regionCountries = [];
 	        var _iteratorNormalCompletion2 = true;
 	        var _didIteratorError2 = false;
 	        var _iteratorError2 = undefined;
@@ -19765,7 +19764,7 @@
 	                var country = _step2.value;
 	
 	                if (country.region === region) {
-	                    regions.push(country);
+	                    regionCountries.push(country);
 	                };
 	            }
 	        } catch (err) {
@@ -19783,8 +19782,7 @@
 	            }
 	        }
 	
-	        console.log(regions);
-	        return regions;
+	        return regionCountries;
 	    },
 	
 	    setDisplayCountry: function setDisplayCountry(country) {
@@ -19805,6 +19803,10 @@
 	        request.onload = function () {
 	            var data = JSON.parse(request.responseText);
 	            this.setState({ countries: data });
+	            var curRegion = this.setRegions()[0];
+	            console.log(curRegion);
+	            this.setDisplayRegion(curRegion);
+	            this.setDisplayCountry(data[0]);
 	        }.bind(this);
 	        request.send(null);
 	    },
@@ -19813,7 +19815,7 @@
 	        var displayElement = React.createElement(
 	            'h4',
 	            null,
-	            ' No Country Selected '
+	            ' No Country Selected  '
 	        );
 	        if (this.state.displayCountry) {
 	            displayElement = React.createElement(CountryDisplay, { display: this.state.displayCountry, borders: this.state.displayBorderCountries });
@@ -19830,7 +19832,6 @@
 	            React.createElement(CountriesSelector, {
 	                countries: this.state.countries,
 	                selectedCountries: this.state.regionCountries,
-	                onSelectRegion: this.setDisplayRegion,
 	                onSelectCountry: this.setDisplayCountry,
 	                display: this.state.displayCountry
 	            }),
@@ -19941,9 +19942,8 @@
 	            React.createElement(
 	                'h4',
 	                null,
-	                'These are the Countries ',
-	                this.props.display.name,
-	                ' borders'
+	                'These are the bordering Countries of ',
+	                this.props.display.name
 	            ),
 	            this.props.borders.map(function (country) {
 	                return React.createElement(
@@ -19982,6 +19982,7 @@
 	    handleChange: function handleChange(e) {
 	        e.preventDefault();
 	        var newIndex = e.target.value;
+	        console.log(newIndex);
 	        this.setState({ selectedIndex: newIndex });
 	        var selectedRegion = this.props.allRegions[newIndex];
 	        this.props.onSelectRegion(selectedRegion);

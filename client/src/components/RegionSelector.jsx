@@ -11,6 +11,7 @@ var RegionSelector = React.createClass({
     handleChange: function(e){
         e.preventDefault();
         var newIndex = e.target.value;
+        console.log(newIndex);
         this.setState({selectedIndex: newIndex});
         var selectedRegion = this.props.allRegions[newIndex];
         this.props.onSelectRegion(selectedRegion);
